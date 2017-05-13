@@ -1,0 +1,18 @@
+Projekt z C#
+1) Nazwa projektu: Modern Pentathlon Event Menager
+
+2) Skład zespołu: 
+
+3) Co będzie robił program: 
+Program stworzony w WPF będzie pozwalał na zarządzaniu imprezami sportowymi w pięcioboju nowoczesnym - dyscypliny sportowej
+składającej się z pływania, kombinacji (strzelanie + bieg), szermierki i jazdy konnej (po więcej info. na temat 
+pięcioboju nowoczesnego zapraszam na stronę http://www.pozpn.pl/co-to-jest-piecioboj-nowoczesny/).
+Główne funkcjonalności programu: 
+ - Dodawanie zawodników i klubów do bazy danych,
+ - Tworzenie wydarzeń sportowych,
+ - Tworzenie list startowych na poszczególne konkurencje w zależności od wyników poszczególnych zawodników i
+ warunków przeprowadzania zawodów. Podczas tworzenia list startowych muszą zostać określone takie parametry jak np. liczba torów na pływalni,
+ liczba stanowisk strzeleckich, maksymalna liczba uczestników w biegu, czasy zgłoszenia zawodników. 
+ - Tworzenie list z wynikami wg. punktacji i zasad stworzonych przez International Modern Pentathlon Union (https://www.uipmworld.org/). 
+ 
+4) Podział pracy: 
