@@ -2,6 +2,8 @@ Projekt z C#
 1) Nazwa projektu: Modern Pentathlon Event Manager
 
 2) Skład zespołu: 
+Rafał Szymczuk
+Przemysław Jędryszczak
 
 3) Co będzie robił program: 
 Program stworzony w WPF będzie pozwalał na zarządzaniu imprezami sportowymi w pięcioboju nowoczesnym - dyscypliny sportowej
@@ -15,4 +17,10 @@ Główne funkcjonalności programu:
  liczba stanowisk strzeleckich, maksymalna liczba uczestników w biegu, czasy zgłoszenia zawodników. 
  - Tworzenie list z wynikami wg. punktacji i zasad stworzonych przez International Modern Pentathlon Union (https://www.uipmworld.org/). 
  
-4) Podział pracy: 
+4) Wstępny podział pracy: 
+Rafał:
+- bazy danych
+- strypty tworzące listy startowe
+Przemek:
+- wygląd WPF
+- zapis do plików
