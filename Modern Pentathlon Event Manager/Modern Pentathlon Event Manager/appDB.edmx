@@ -1,0 +1,952 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="appDBModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=&quot;C:\Users\Lenovo\Documents\Git\Projekt\Modern Pentathlon Event Manager\event-manager.db&quot;" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Club">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClubName" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="ClubRegion" Type="integer" />
+        </EntityType>
+        <EntityType Name="Competitions">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CompetitionName" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="StartOrder" Type="integer" />
+          <Property Name="Scores" Type="integer" />
+          <Property Name="BasicPoints" Type="integer" />
+        </EntityType>
+        <EntityType Name="EventCompetitions">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EventID" Type="integer" Nullable="false" />
+          <Property Name="CompetitionID" Type="integer" Nullable="false" />
+          <Property Name="Order" Type="integer" />
+          <Property Name="ScoresDone" Type="integer" />
+        </EntityType>
+        <EntityType Name="EventParticipants">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EventID" Type="integer" />
+          <Property Name="ParticipantID" Type="integer" />
+        </EntityType>
+        <EntityType Name="Events">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EventName" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="EventPlace" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="EventDate" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="EventNation" Type="integer" />
+          <Property Name="EventRegion" Type="integer" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Nation">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NationName" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Participant">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="Sex" Type="integer" />
+          <Property Name="BirthYear" Type="integer" />
+          <Property Name="BirthMonth" Type="integer" />
+          <Property Name="BirthDay" Type="integer" />
+          <Property Name="Club" Type="integer" />
+          <Property Name="City" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="Nationality" Type="integer" />
+          <Property Name="RegTime" Type="nvarchar" MaxLength="2147483647" />
+        </EntityType>
+        <EntityType Name="Regions">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RegionName" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Scores">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Participant" Type="integer" />
+          <Property Name="Score-Time" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="Score-Points" Type="integer" />
+        </EntityType>
+        <EntityType Name="Sex">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SexName" Type="nvarchar" MaxLength="2147483647" />
+        </EntityType>
+        <EntityType Name="StartOrders">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FKevent" Type="integer" />
+          <Property Name="FKeventParticipant" Type="integer" />
+          <Property Name="FKcompetition" Type="integer" />
+          <Property Name="FKParticipant" Type="integer" />
+          <Property Name="Number" Type="integer" />
+          <Property Name="Heat" Type="integer" />
+          <Property Name="Track" Type="integer" />
+          <Property Name="EntryTime" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="EntryScore" Type="integer" />
+          <Property Name="FinalTime" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="FinalScore" Type="integer" />
+        </EntityType>
+        <Association Name="FK_Club_0_0">
+          <End Role="Regions" Type="Self.Regions" Multiplicity="0..1" />
+          <End Role="Club" Type="Self.Club" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Regions">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Club">
+              <PropertyRef Name="ClubRegion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Competitions_0_0">
+          <End Role="Scores" Type="Self.Scores" Multiplicity="0..1" />
+          <End Role="Competitions" Type="Self.Competitions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Scores">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Competitions">
+              <PropertyRef Name="Scores" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Competitions_1_0">
+          <End Role="StartOrders" Type="Self.StartOrders" Multiplicity="0..1" />
+          <End Role="Competitions" Type="Self.Competitions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StartOrders">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Competitions">
+              <PropertyRef Name="StartOrder" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EventCompetitions_0_0">
+          <End Role="Events" Type="Self.Events" Multiplicity="1" />
+          <End Role="EventCompetitions" Type="Self.EventCompetitions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Events">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="EventCompetitions">
+              <PropertyRef Name="EventID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EventCompetitions_1_0">
+          <End Role="Competitions" Type="Self.Competitions" Multiplicity="1" />
+          <End Role="EventCompetitions" Type="Self.EventCompetitions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Competitions">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="EventCompetitions">
+              <PropertyRef Name="CompetitionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EventParticipants_0_0">
+          <End Role="Events" Type="Self.Events" Multiplicity="0..1" />
+          <End Role="EventParticipants" Type="Self.EventParticipants" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Events">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="EventParticipants">
+              <PropertyRef Name="EventID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EventParticipants_1_0">
+          <End Role="Participant" Type="Self.Participant" Multiplicity="0..1" />
+          <End Role="EventParticipants" Type="Self.EventParticipants" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Participant">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="EventParticipants">
+              <PropertyRef Name="ParticipantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Events_0_0">
+          <End Role="Nation" Type="Self.Nation" Multiplicity="0..1" />
+          <End Role="Events" Type="Self.Events" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Nation">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Events">
+              <PropertyRef Name="EventNation" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Participant_0_0">
+          <End Role="Nation" Type="Self.Nation" Multiplicity="0..1" />
+          <End Role="Participant" Type="Self.Participant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Nation">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Participant">
+              <PropertyRef Name="Nationality" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Participant_1_0">
+          <End Role="Club" Type="Self.Club" Multiplicity="0..1" />
+          <End Role="Participant" Type="Self.Participant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Club">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Participant">
+              <PropertyRef Name="Club" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Participant_2_0">
+          <End Role="Sex" Type="Self.Sex" Multiplicity="0..1" />
+          <End Role="Participant" Type="Self.Participant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sex">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Participant">
+              <PropertyRef Name="Sex" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Scores_0_0">
+          <End Role="Participant" Type="Self.Participant" Multiplicity="0..1" />
+          <End Role="Scores" Type="Self.Scores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Participant">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Scores">
+              <PropertyRef Name="Participant" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StartOrders_0_0">
+          <End Role="Events" Type="Self.Events" Multiplicity="0..1" />
+          <End Role="StartOrders" Type="Self.StartOrders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Events">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="StartOrders">
+              <PropertyRef Name="FKevent" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StartOrders_1_0">
+          <End Role="EventParticipants" Type="Self.EventParticipants" Multiplicity="0..1" />
+          <End Role="StartOrders" Type="Self.StartOrders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EventParticipants">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="StartOrders">
+              <PropertyRef Name="FKeventParticipant" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StartOrders_2_0">
+          <End Role="Participant" Type="Self.Participant" Multiplicity="0..1" />
+          <End Role="StartOrders" Type="Self.StartOrders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Participant">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="StartOrders">
+              <PropertyRef Name="FKParticipant" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StartOrders_3_0">
+          <End Role="Competitions" Type="Self.Competitions" Multiplicity="0..1" />
+          <End Role="StartOrders" Type="Self.StartOrders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Competitions">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="StartOrders">
+              <PropertyRef Name="FKcompetition" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="appDBModelStoreContainer">
+          <EntitySet Name="Club" EntityType="Self.Club" store:Type="Tables" />
+          <EntitySet Name="Competitions" EntityType="Self.Competitions" store:Type="Tables" />
+          <EntitySet Name="EventCompetitions" EntityType="Self.EventCompetitions" store:Type="Tables" />
+          <EntitySet Name="EventParticipants" EntityType="Self.EventParticipants" store:Type="Tables" />
+          <EntitySet Name="Events" EntityType="Self.Events" store:Type="Tables" />
+          <EntitySet Name="Nation" EntityType="Self.Nation" store:Type="Tables" />
+          <EntitySet Name="Participant" EntityType="Self.Participant" store:Type="Tables" />
+          <EntitySet Name="Regions" EntityType="Self.Regions" store:Type="Tables" />
+          <EntitySet Name="Scores" EntityType="Self.Scores" store:Type="Tables" />
+          <EntitySet Name="Sex" EntityType="Self.Sex" store:Type="Tables" />
+          <EntitySet Name="StartOrders" EntityType="Self.StartOrders" store:Type="Tables" />
+          <AssociationSet Name="FK_Club_0_0" Association="Self.FK_Club_0_0">
+            <End Role="Regions" EntitySet="Regions" />
+            <End Role="Club" EntitySet="Club" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Competitions_0_0" Association="Self.FK_Competitions_0_0">
+            <End Role="Scores" EntitySet="Scores" />
+            <End Role="Competitions" EntitySet="Competitions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Competitions_1_0" Association="Self.FK_Competitions_1_0">
+            <End Role="StartOrders" EntitySet="StartOrders" />
+            <End Role="Competitions" EntitySet="Competitions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EventCompetitions_0_0" Association="Self.FK_EventCompetitions_0_0">
+            <End Role="Events" EntitySet="Events" />
+            <End Role="EventCompetitions" EntitySet="EventCompetitions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EventCompetitions_1_0" Association="Self.FK_EventCompetitions_1_0">
+            <End Role="Competitions" EntitySet="Competitions" />
+            <End Role="EventCompetitions" EntitySet="EventCompetitions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EventParticipants_0_0" Association="Self.FK_EventParticipants_0_0">
+            <End Role="Events" EntitySet="Events" />
+            <End Role="EventParticipants" EntitySet="EventParticipants" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EventParticipants_1_0" Association="Self.FK_EventParticipants_1_0">
+            <End Role="Participant" EntitySet="Participant" />
+            <End Role="EventParticipants" EntitySet="EventParticipants" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Events_0_0" Association="Self.FK_Events_0_0">
+            <End Role="Nation" EntitySet="Nation" />
+            <End Role="Events" EntitySet="Events" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Participant_0_0" Association="Self.FK_Participant_0_0">
+            <End Role="Nation" EntitySet="Nation" />
+            <End Role="Participant" EntitySet="Participant" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Participant_1_0" Association="Self.FK_Participant_1_0">
+            <End Role="Club" EntitySet="Club" />
+            <End Role="Participant" EntitySet="Participant" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Participant_2_0" Association="Self.FK_Participant_2_0">
+            <End Role="Sex" EntitySet="Sex" />
+            <End Role="Participant" EntitySet="Participant" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Scores_0_0" Association="Self.FK_Scores_0_0">
+            <End Role="Participant" EntitySet="Participant" />
+            <End Role="Scores" EntitySet="Scores" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StartOrders_0_0" Association="Self.FK_StartOrders_0_0">
+            <End Role="Events" EntitySet="Events" />
+            <End Role="StartOrders" EntitySet="StartOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StartOrders_1_0" Association="Self.FK_StartOrders_1_0">
+            <End Role="EventParticipants" EntitySet="EventParticipants" />
+            <End Role="StartOrders" EntitySet="StartOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StartOrders_2_0" Association="Self.FK_StartOrders_2_0">
+            <End Role="Participant" EntitySet="Participant" />
+            <End Role="StartOrders" EntitySet="StartOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StartOrders_3_0" Association="Self.FK_StartOrders_3_0">
+            <End Role="Competitions" EntitySet="Competitions" />
+            <End Role="StartOrders" EntitySet="StartOrders" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="appDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Club">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClubName" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClubRegion" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Regions" Relationship="Self.FK_Club_0_0" FromRole="Club" ToRole="Regions" />
+          <NavigationProperty Name="Participant" Relationship="Self.FK_Participant_0_0" FromRole="Club" ToRole="Participant" />
+        </EntityType>
+        <EntityType Name="Competitions">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompetitionName" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StartOrder" Type="Int64" />
+          <Property Name="Scores" Type="Int64" />
+          <Property Name="BasicPoints" Type="Int64" />
+          <NavigationProperty Name="Scores1" Relationship="Self.FK_Competitions_0_0" FromRole="Competitions" ToRole="Scores" />
+          <NavigationProperty Name="StartOrders" Relationship="Self.FK_Competitions_1_0" FromRole="Competitions" ToRole="StartOrders" />
+          <NavigationProperty Name="EventCompetitions" Relationship="Self.FK_EventCompetitions_0_0" FromRole="Competitions" ToRole="EventCompetitions" />
+          <NavigationProperty Name="StartOrders1" Relationship="appDBModel.FK_StartOrders_2_0" FromRole="Competitions" ToRole="StartOrders" />
+        </EntityType>
+        <EntityType Name="EventCompetitions">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EventID" Type="Int64" Nullable="false" />
+          <Property Name="CompetitionID" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Competitions" Relationship="Self.FK_EventCompetitions_0_0" FromRole="EventCompetitions" ToRole="Competitions" />
+          <NavigationProperty Name="Events" Relationship="Self.FK_EventCompetitions_1_0" FromRole="EventCompetitions" ToRole="Events" />
+          <Property Name="Order" Type="Int64" />
+          <Property Name="ScoresDone" Type="Int16" />
+        </EntityType>
+        <EntityType Name="EventParticipants">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EventID" Type="Int64" Nullable="false" />
+          <Property Name="ParticipantID" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Participant" Relationship="Self.FK_EventParticipants_0_0" FromRole="EventParticipants" ToRole="Participant" />
+          <NavigationProperty Name="Events" Relationship="Self.FK_EventParticipants_1_0" FromRole="EventParticipants" ToRole="Events" />
+          <NavigationProperty Name="StartOrders" Relationship="appDBModel.FK_StartOrders_1_0" FromRole="EventParticipants" ToRole="StartOrders" />
+        </EntityType>
+        <EntityType Name="Events">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EventName" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EventPlace" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="EventDate" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EventNation" Type="Int64" />
+          <Property Name="EventRegion" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="EventCompetitions" Relationship="Self.FK_EventCompetitions_1_0" FromRole="Events" ToRole="EventCompetitions" />
+          <NavigationProperty Name="EventParticipants" Relationship="Self.FK_EventParticipants_1_0" FromRole="Events" ToRole="EventParticipants" />
+          <NavigationProperty Name="Nation" Relationship="Self.FK_Events_0_0" FromRole="Events" ToRole="Nation" />
+          <NavigationProperty Name="StartOrders" Relationship="appDBModel.FK_StartOrders_0_01" FromRole="Events" ToRole="StartOrders" />
+        </EntityType>
+        <EntityType Name="Nation">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NationName" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Events" Relationship="Self.FK_Events_0_0" FromRole="Nation" ToRole="Events" />
+          <NavigationProperty Name="Participant" Relationship="Self.FK_Participant_2_0" FromRole="Nation" ToRole="Participant" />
+        </EntityType>
+        <EntityType Name="Participant">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Surname" Type="String" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Sex" Type="Int64" Nullable="false" />
+          <Property Name="BirthYear" Type="Int32" Nullable="false" />
+          <Property Name="BirthMonth" Type="Int32" />
+          <Property Name="BirthDay" Type="Int32" />
+          <Property Name="Club" Type="Int64" />
+          <Property Name="City" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Nationality" Type="Int64" />
+          <NavigationProperty Name="Club1" Relationship="Self.FK_Participant_0_0" FromRole="Participant" ToRole="Club" />
+          <NavigationProperty Name="EventParticipants" Relationship="Self.FK_EventParticipants_0_0" FromRole="Participant" ToRole="EventParticipants" />
+          <NavigationProperty Name="Nation" Relationship="Self.FK_Participant_2_0" FromRole="Participant" ToRole="Nation" />
+          <NavigationProperty Name="Sex1" Relationship="Self.FK_Participant_1_0" FromRole="Participant" ToRole="Sex" />
+          <NavigationProperty Name="Scores" Relationship="Self.FK_Scores_0_0" FromRole="Participant" ToRole="Scores" />
+          <Property Name="RegTime" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="StartOrders" Relationship="appDBModel.FK_StartOrders_2_01" FromRole="Participant" ToRole="StartOrders" />
+        </EntityType>
+        <EntityType Name="Regions">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RegionName" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Club" Relationship="Self.FK_Club_0_0" FromRole="Regions" ToRole="Club" />
+        </EntityType>
+        <EntityType Name="Scores">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Participant" Type="Int64" />
+          <Property Name="Score_Time" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Score_Points" Type="Int64" />
+          <NavigationProperty Name="Competitions" Relationship="Self.FK_Competitions_0_0" FromRole="Scores" ToRole="Competitions" />
+          <NavigationProperty Name="Participant1" Relationship="Self.FK_Scores_0_0" FromRole="Scores" ToRole="Participant" />
+        </EntityType>
+        <EntityType Name="Sex">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SexName" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Participant" Relationship="Self.FK_Participant_1_0" FromRole="Sex" ToRole="Participant" />
+        </EntityType>
+        <EntityType Name="StartOrders">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Number" Type="Int32" />
+          <Property Name="Heat" Type="Int32" />
+          <Property Name="Track" Type="Int32" />
+          <NavigationProperty Name="Competitions" Relationship="Self.FK_Competitions_1_0" FromRole="StartOrders" ToRole="Competitions" />
+          <Property Name="FKevent" Type="Int64" />
+          <Property Name="FKeventParticipant" Type="Int64" />
+          <Property Name="FKcompetition" Type="Int64" />
+          <Property Name="EntryTime" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="EntryScore" Type="Int32" />
+          <Property Name="FinalTime" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="FinalScore" Type="Int32" />
+          <NavigationProperty Name="Competitions1" Relationship="appDBModel.FK_StartOrders_2_0" FromRole="StartOrders" ToRole="Competitions" />
+          <NavigationProperty Name="EventParticipants" Relationship="appDBModel.FK_StartOrders_1_0" FromRole="StartOrders" ToRole="EventParticipants" />
+          <NavigationProperty Name="Events" Relationship="appDBModel.FK_StartOrders_0_01" FromRole="StartOrders" ToRole="Events" />
+          <Property Name="FKParticipant" Type="Int64" />
+          <NavigationProperty Name="Participant1" Relationship="appDBModel.FK_StartOrders_2_01" FromRole="StartOrders" ToRole="Participant" />
+        </EntityType>
+        <Association Name="FK_Club_0_0">
+          <End Role="Regions" Type="Self.Regions" Multiplicity="1" />
+          <End Role="Club" Type="Self.Club" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Regions">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Club">
+              <PropertyRef Name="ClubRegion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Participant_0_0">
+          <End Role="Club" Type="Self.Club" Multiplicity="0..1" />
+          <End Role="Participant" Type="Self.Participant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Club">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Participant">
+              <PropertyRef Name="Club" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Competitions_0_0">
+          <End Role="Scores" Type="Self.Scores" Multiplicity="0..1" />
+          <End Role="Competitions" Type="Self.Competitions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Scores">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Competitions">
+              <PropertyRef Name="Scores" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Competitions_1_0">
+          <End Role="StartOrders" Type="Self.StartOrders" Multiplicity="0..1" />
+          <End Role="Competitions" Type="Self.Competitions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StartOrders">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Competitions">
+              <PropertyRef Name="StartOrder" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EventCompetitions_0_0">
+          <End Role="Competitions" Type="Self.Competitions" Multiplicity="1" />
+          <End Role="EventCompetitions" Type="Self.EventCompetitions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Competitions">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="EventCompetitions">
+              <PropertyRef Name="CompetitionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EventCompetitions_1_0">
+          <End Role="Events" Type="Self.Events" Multiplicity="1" />
+          <End Role="EventCompetitions" Type="Self.EventCompetitions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Events">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="EventCompetitions">
+              <PropertyRef Name="EventID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EventParticipants_0_0">
+          <End Role="Participant" Type="Self.Participant" Multiplicity="1" />
+          <End Role="EventParticipants" Type="Self.EventParticipants" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Participant">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="EventParticipants">
+              <PropertyRef Name="ParticipantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EventParticipants_1_0">
+          <End Role="Events" Type="Self.Events" Multiplicity="1" />
+          <End Role="EventParticipants" Type="Self.EventParticipants" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Events">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="EventParticipants">
+              <PropertyRef Name="EventID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Events_0_0">
+          <End Role="Nation" Type="Self.Nation" Multiplicity="0..1" />
+          <End Role="Events" Type="Self.Events" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Nation">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Events">
+              <PropertyRef Name="EventNation" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Participant_2_0">
+          <End Role="Nation" Type="Self.Nation" Multiplicity="0..1" />
+          <End Role="Participant" Type="Self.Participant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Nation">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Participant">
+              <PropertyRef Name="Nationality" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Participant_1_0">
+          <End Role="Sex" Type="Self.Sex" Multiplicity="1" />
+          <End Role="Participant" Type="Self.Participant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sex">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Participant">
+              <PropertyRef Name="Sex" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Scores_0_0">
+          <End Role="Participant" Type="Self.Participant" Multiplicity="0..1" />
+          <End Role="Scores" Type="Self.Scores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Participant">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Scores">
+              <PropertyRef Name="Participant" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="appDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Club" EntityType="Self.Club" />
+          <EntitySet Name="Competitions" EntityType="Self.Competitions" />
+          <EntitySet Name="EventCompetitions" EntityType="Self.EventCompetitions" />
+          <EntitySet Name="EventParticipants" EntityType="Self.EventParticipants" />
+          <EntitySet Name="Events" EntityType="Self.Events" />
+          <EntitySet Name="Nation" EntityType="Self.Nation" />
+          <EntitySet Name="Participant" EntityType="Self.Participant" />
+          <EntitySet Name="Regions" EntityType="Self.Regions" />
+          <EntitySet Name="Scores" EntityType="Self.Scores" />
+          <EntitySet Name="Sex" EntityType="Self.Sex" />
+          <EntitySet Name="StartOrders" EntityType="Self.StartOrders" />
+          <AssociationSet Name="FK_Club_0_0" Association="Self.FK_Club_0_0">
+            <End Role="Regions" EntitySet="Regions" />
+            <End Role="Club" EntitySet="Club" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Participant_0_0" Association="Self.FK_Participant_0_0">
+            <End Role="Club" EntitySet="Club" />
+            <End Role="Participant" EntitySet="Participant" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Competitions_0_0" Association="Self.FK_Competitions_0_0">
+            <End Role="Scores" EntitySet="Scores" />
+            <End Role="Competitions" EntitySet="Competitions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Competitions_1_0" Association="Self.FK_Competitions_1_0">
+            <End Role="StartOrders" EntitySet="StartOrders" />
+            <End Role="Competitions" EntitySet="Competitions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EventCompetitions_0_0" Association="Self.FK_EventCompetitions_0_0">
+            <End Role="Competitions" EntitySet="Competitions" />
+            <End Role="EventCompetitions" EntitySet="EventCompetitions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EventCompetitions_1_0" Association="Self.FK_EventCompetitions_1_0">
+            <End Role="Events" EntitySet="Events" />
+            <End Role="EventCompetitions" EntitySet="EventCompetitions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EventParticipants_0_0" Association="Self.FK_EventParticipants_0_0">
+            <End Role="Participant" EntitySet="Participant" />
+            <End Role="EventParticipants" EntitySet="EventParticipants" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EventParticipants_1_0" Association="Self.FK_EventParticipants_1_0">
+            <End Role="Events" EntitySet="Events" />
+            <End Role="EventParticipants" EntitySet="EventParticipants" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Events_0_0" Association="Self.FK_Events_0_0">
+            <End Role="Nation" EntitySet="Nation" />
+            <End Role="Events" EntitySet="Events" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Participant_2_0" Association="Self.FK_Participant_2_0">
+            <End Role="Nation" EntitySet="Nation" />
+            <End Role="Participant" EntitySet="Participant" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Participant_1_0" Association="Self.FK_Participant_1_0">
+            <End Role="Sex" EntitySet="Sex" />
+            <End Role="Participant" EntitySet="Participant" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Scores_0_0" Association="Self.FK_Scores_0_0">
+            <End Role="Participant" EntitySet="Participant" />
+            <End Role="Scores" EntitySet="Scores" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StartOrders_2_0" Association="appDBModel.FK_StartOrders_2_0">
+            <End Role="Competitions" EntitySet="Competitions" />
+            <End Role="StartOrders" EntitySet="StartOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StartOrders_1_0" Association="appDBModel.FK_StartOrders_1_0">
+            <End Role="EventParticipants" EntitySet="EventParticipants" />
+            <End Role="StartOrders" EntitySet="StartOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StartOrders_0_01" Association="appDBModel.FK_StartOrders_0_01">
+            <End Role="Events" EntitySet="Events" />
+            <End Role="StartOrders" EntitySet="StartOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StartOrders_2_01" Association="appDBModel.FK_StartOrders_2_01">
+            <End Role="Participant" EntitySet="Participant" />
+            <End Role="StartOrders" EntitySet="StartOrders" />
+          </AssociationSet>
+        </EntityContainer>
+        <Association Name="FK_StartOrders_2_0">
+          <End Type="appDBModel.Competitions" Role="Competitions" Multiplicity="0..1" />
+          <End Type="appDBModel.StartOrders" Role="StartOrders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Competitions">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="StartOrders">
+              <PropertyRef Name="FKcompetition" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StartOrders_1_0">
+          <End Type="appDBModel.EventParticipants" Role="EventParticipants" Multiplicity="0..1" />
+          <End Type="appDBModel.StartOrders" Role="StartOrders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EventParticipants">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="StartOrders">
+              <PropertyRef Name="FKeventParticipant" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StartOrders_0_01">
+          <End Type="appDBModel.Events" Role="Events" Multiplicity="0..1" />
+          <End Type="appDBModel.StartOrders" Role="StartOrders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Events">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="StartOrders">
+              <PropertyRef Name="FKevent" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StartOrders_2_01">
+          <End Type="appDBModel.Participant" Role="Participant" Multiplicity="0..1" />
+          <End Type="appDBModel.StartOrders" Role="StartOrders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Participant">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="StartOrders">
+              <PropertyRef Name="FKParticipant" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="appDBModelStoreContainer" CdmEntityContainer="appDBEntities">
+          <EntitySetMapping Name="Club">
+            <EntityTypeMapping TypeName="appDBModel.Club">
+              <MappingFragment StoreEntitySet="Club">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="ClubName" ColumnName="ClubName" />
+                <ScalarProperty Name="ClubRegion" ColumnName="ClubRegion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Competitions">
+            <EntityTypeMapping TypeName="appDBModel.Competitions">
+              <MappingFragment StoreEntitySet="Competitions">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="CompetitionName" ColumnName="CompetitionName" />
+                <ScalarProperty Name="StartOrder" ColumnName="StartOrder" />
+                <ScalarProperty Name="Scores" ColumnName="Scores" />
+                <ScalarProperty Name="BasicPoints" ColumnName="BasicPoints" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EventCompetitions">
+            <EntityTypeMapping TypeName="appDBModel.EventCompetitions">
+              <MappingFragment StoreEntitySet="EventCompetitions">
+                <ScalarProperty Name="ScoresDone" ColumnName="ScoresDone" />
+                <ScalarProperty Name="Order" ColumnName="Order" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="EventID" ColumnName="EventID" />
+                <ScalarProperty Name="CompetitionID" ColumnName="CompetitionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EventParticipants">
+            <EntityTypeMapping TypeName="appDBModel.EventParticipants">
+              <MappingFragment StoreEntitySet="EventParticipants">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="EventID" ColumnName="EventID" />
+                <ScalarProperty Name="ParticipantID" ColumnName="ParticipantID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Events">
+            <EntityTypeMapping TypeName="appDBModel.Events">
+              <MappingFragment StoreEntitySet="Events">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="EventName" ColumnName="EventName" />
+                <ScalarProperty Name="EventPlace" ColumnName="EventPlace" />
+                <ScalarProperty Name="EventDate" ColumnName="EventDate" />
+                <ScalarProperty Name="EventNation" ColumnName="EventNation" />
+                <ScalarProperty Name="EventRegion" ColumnName="EventRegion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Nation">
+            <EntityTypeMapping TypeName="appDBModel.Nation">
+              <MappingFragment StoreEntitySet="Nation">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="NationName" ColumnName="NationName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Participant">
+            <EntityTypeMapping TypeName="appDBModel.Participant">
+              <MappingFragment StoreEntitySet="Participant">
+                <ScalarProperty Name="RegTime" ColumnName="RegTime" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="BirthYear" ColumnName="BirthYear" />
+                <ScalarProperty Name="BirthMonth" ColumnName="BirthMonth" />
+                <ScalarProperty Name="BirthDay" ColumnName="BirthDay" />
+                <ScalarProperty Name="Club" ColumnName="Club" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Nationality" ColumnName="Nationality" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Regions">
+            <EntityTypeMapping TypeName="appDBModel.Regions">
+              <MappingFragment StoreEntitySet="Regions">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="RegionName" ColumnName="RegionName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Scores">
+            <EntityTypeMapping TypeName="appDBModel.Scores">
+              <MappingFragment StoreEntitySet="Scores">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Participant" ColumnName="Participant" />
+                <ScalarProperty Name="Score_Time" ColumnName="Score-Time" />
+                <ScalarProperty Name="Score_Points" ColumnName="Score-Points" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sex">
+            <EntityTypeMapping TypeName="appDBModel.Sex">
+              <MappingFragment StoreEntitySet="Sex">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="SexName" ColumnName="SexName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StartOrders">
+            <EntityTypeMapping TypeName="appDBModel.StartOrders">
+              <MappingFragment StoreEntitySet="StartOrders">
+                <ScalarProperty Name="FKParticipant" ColumnName="FKParticipant" />
+                <ScalarProperty Name="FinalScore" ColumnName="FinalScore" />
+                <ScalarProperty Name="FinalTime" ColumnName="FinalTime" />
+                <ScalarProperty Name="EntryScore" ColumnName="EntryScore" />
+                <ScalarProperty Name="EntryTime" ColumnName="EntryTime" />
+                <ScalarProperty Name="FKcompetition" ColumnName="FKcompetition" />
+                <ScalarProperty Name="FKeventParticipant" ColumnName="FKeventParticipant" />
+                <ScalarProperty Name="FKevent" ColumnName="FKevent" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Heat" ColumnName="Heat" />
+                <ScalarProperty Name="Track" ColumnName="Track" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

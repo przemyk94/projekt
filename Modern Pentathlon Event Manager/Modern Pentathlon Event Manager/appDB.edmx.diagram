@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7aaebfac9e234820a6060cedd9e3bbe2" Name="Diagram1" ZoomLevel="94">
+        <EntityTypeShape EntityType="appDBModel.Club" Width="1.5" PointX="3.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="appDBModel.Competitions" Width="1.5" PointX="10.5" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="appDBModel.EventCompetitions" Width="1.5" PointX="5.25" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="appDBModel.EventParticipants" Width="1.5" PointX="5.25" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="appDBModel.Events" Width="1.5" PointX="3" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="appDBModel.Nation" Width="1.5" PointX="0.75" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="appDBModel.Participant" Width="1.5" PointX="6" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="appDBModel.Regions" Width="1.5" PointX="1.5" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="appDBModel.Scores" Width="1.5" PointX="8.25" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="appDBModel.Sex" Width="1.5" PointX="3.75" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="appDBModel.StartOrders" Width="1.5" PointX="8.25" PointY="11.25" IsExpanded="true" />
+        <AssociationConnector Association="appDBModel.FK_Club_0_0" ManuallyRouted="false" />
+        <AssociationConnector Association="appDBModel.FK_Participant_0_0" ManuallyRouted="false" />
+        <AssociationConnector Association="appDBModel.FK_Competitions_0_0" ManuallyRouted="false" />
+        <AssociationConnector Association="appDBModel.FK_Competitions_1_0" ManuallyRouted="false" />
+        <AssociationConnector Association="appDBModel.FK_EventCompetitions_0_0" ManuallyRouted="false" />
+        <AssociationConnector Association="appDBModel.FK_EventCompetitions_1_0" ManuallyRouted="false" />
+        <AssociationConnector Association="appDBModel.FK_EventParticipants_0_0" ManuallyRouted="false" />
+        <AssociationConnector Association="appDBModel.FK_EventParticipants_1_0" ManuallyRouted="false" />
+        <AssociationConnector Association="appDBModel.FK_Events_0_0" ManuallyRouted="false" />
+        <AssociationConnector Association="appDBModel.FK_Participant_2_0" ManuallyRouted="false" />
+        <AssociationConnector Association="appDBModel.FK_Participant_1_0" ManuallyRouted="false" />
+        <AssociationConnector Association="appDBModel.FK_Scores_0_0" ManuallyRouted="false" />
+        <AssociationConnector Association="appDBModel.FK_StartOrders_2_0" />
+        <AssociationConnector Association="appDBModel.FK_StartOrders_1_0" />
+        <AssociationConnector Association="appDBModel.FK_StartOrders_0_01" />
+        <AssociationConnector Association="appDBModel.FK_StartOrders_2_01" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

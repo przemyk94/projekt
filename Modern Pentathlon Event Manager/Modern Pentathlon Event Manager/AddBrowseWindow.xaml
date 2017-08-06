@@ -1,0 +1,305 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Modern_Pentathlon_Event_Manager"
+        xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="Modern_Pentathlon_Event_Manager.AddBrowseWindow"
+        mc:Ignorable="d"
+        Title="AddBrowseWindow" Height="544.25" Width="862" Loaded="Window_Loaded">
+    <Window.Resources>
+        <local:_event_managerDataSet x:Key="_event_managerDataSet"/>
+        <CollectionViewSource x:Key="ViewSource" Source="{Binding Mode=OneWay, Source={StaticResource _event_managerDataSet}}"/>
+        <CollectionViewSource x:Key="participantViewSource" Source="{Binding Participant, Source={StaticResource _event_managerDataSet}}"/>
+        <CollectionViewSource x:Key="eventsViewSource" Source="{Binding Events, Source={StaticResource _event_managerDataSet}}"/>
+        <CollectionViewSource x:Key="sexViewSource" Source="{Binding Sex, Source={StaticResource _event_managerDataSet}}"/>
+        <CollectionViewSource x:Key="clubViewSource" Source="{Binding Club, Source={StaticResource _event_managerDataSet}}"/>
+
+        <System:String x:Key="String1">ValueColorEnum</System:String>
+        <System:String x:Key="String2">ValueColorString</System:String>
+        <CollectionViewSource x:Key="sexParticipantViewSource" Source="{Binding FK_Participant_1_0, Source={StaticResource sexViewSource}}"/>
+        <CollectionViewSource x:Key="nationViewSource" Source="{Binding Nation, Source={StaticResource _event_managerDataSet}}"/>
+        <CollectionViewSource x:Key="competitionsViewSource" Source="{Binding Competitions, Source={StaticResource _event_managerDataSet}}"/>
+        <CollectionViewSource x:Key="regionsViewSource" Source="{Binding Regions, Source={StaticResource _event_managerDataSet}}"/>
+
+    </Window.Resources>
+    <Grid Height="505" VerticalAlignment="Top" HorizontalAlignment="Left" Width="876">
+        <TabControl x:Name="tabControl" HorizontalAlignment="Left" Width="852" RenderTransformOrigin="0.5,0.5" Margin="5,4,0,-7" Height="508" VerticalAlignment="Top">
+            <TabControl.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleX="-0.722"/>
+                    <RotateTransform/>
+                    <TranslateTransform X="-2.487"/>
+                </TransformGroup>
+            </TabControl.RenderTransform>
+            <TabItem Header="Events">
+                <Grid Background="#FFE5E5E5" DataContext="{StaticResource eventsViewSource}" Margin="0,-2,-2,2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="90*"/>
+                        <ColumnDefinition Width="9*"/>
+                        <ColumnDefinition Width="19*"/>
+                        <ColumnDefinition Width="54*"/>
+                        <ColumnDefinition Width="266*"/>
+                        <ColumnDefinition Width="410*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBox x:Name="EventNameTextBox" Grid.Column="5" HorizontalAlignment="Left" Height="23" Margin="20,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="210"/>
+                    <TextBox x:Name="EventPlaceTextBox" Grid.Column="5" HorizontalAlignment="Left" Height="23" Margin="20,38,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="210"/>
+                    <TextBox x:Name="EventDateYearTextBox" Grid.Column="5" HorizontalAlignment="Left" Height="23" Margin="20,66,0,0" TextWrapping="Wrap" Text="YYYY" VerticalAlignment="Top" Width="36"/>
+                    <TextBox x:Name="EventDateMonthTextBox" Grid.Column="5" HorizontalAlignment="Left" Height="23" Margin="60,66,0,0" TextWrapping="Wrap" Text="MM" VerticalAlignment="Top" Width="30"/>
+                    <TextBox x:Name="EventDateDayTextBox" Grid.Column="5" HorizontalAlignment="Left" Height="23" Margin="94,66,0,0" TextWrapping="Wrap" Text="DD" VerticalAlignment="Top" Width="30"/>
+                    <Grid x:Name="gridEventNation" Grid.Column="5" DataContext="{StaticResource nationViewSource}" HorizontalAlignment="Left" Margin="20,94,0,0" VerticalAlignment="Top" Width="210" Height="22">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="94.672"/>
+                            <ColumnDefinition Width="75.328"/>
+                            <ColumnDefinition Width="14*"/>
+                            <ColumnDefinition Width="0*"/>
+                            <ColumnDefinition Width="25*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <ComboBox x:Name="EventNationComboBox" DisplayMemberPath="NationName" HorizontalAlignment="Left" Height="22" ItemsSource="{Binding}" Grid.Row="0" VerticalAlignment="Top" Width="209" SelectedValuePath="{Binding id}" Grid.Column="1" Grid.ColumnSpan="5" SelectionChanged="EventNationComboBox_SelectionChanged" Margin="0,0,0,-9" >
+                            <ComboBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <VirtualizingStackPanel/>
+                                </ItemsPanelTemplate>
+                            </ComboBox.ItemsPanel>
+                        </ComboBox>
+                    </Grid>
+
+                    <Button x:Name="AddEventButton" Content="Add Event" Grid.Column="5" HorizontalAlignment="Left" Margin="156,157,0,0" VerticalAlignment="Top" Width="74" Click="AddEventButton_Click" Height="20"/>
+                    <DataGrid x:Name="eventsDataGrid" IsReadOnly="True" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Grid.ColumnSpan="5" Height="369" Width="306" RenderTransformOrigin="0.191,0.441"  AutoGenerateColumns="False" SelectionChanged="eventsDataGrid_SelectionChanged">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn x:Name="idEventColumn" Binding="{Binding id}" Header="id" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="EventNameColumn"  Binding="{Binding EventName}" Header="Name" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="EventPlaceColumn"  Binding="{Binding EventPlace}" Header="Place" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="EventDateColumn" Binding="{Binding EventDate}" Header="Date" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="NationNameColumn"  Binding="{Binding NationName}" Header="Nation" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="RegionNameColumn"  Binding="{Binding RegionName}" Header="Region" Width="SizeToHeader"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Grid x:Name="gridEventRegion" Grid.Column="5" DataContext="{StaticResource regionsViewSource}" HorizontalAlignment="Left" Margin="20,128,0,0" VerticalAlignment="Top" Width="210" Height="29">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="94.672"/>
+                            <ColumnDefinition Width="75.328"/>
+                            <ColumnDefinition Width="14*"/>
+                            <ColumnDefinition Width="0*"/>
+                            <ColumnDefinition Width="25*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <ComboBox x:Name="EventRegionComboBox" DisplayMemberPath="RegionName" SelectedValuePath="{Binding}" Grid.Column="1" HorizontalAlignment="Left" Margin="0,-3,0,0" VerticalAlignment="Top" Width="209" ItemsSource="{Binding Source={StaticResource regionsViewSource}}" SelectionChanged="EventNationComboBox_SelectionChanged" Grid.ColumnSpan="5">
+
+                            <ComboBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <VirtualizingStackPanel/>
+                                </ItemsPanelTemplate>
+                            </ComboBox.ItemsPanel>
+                        </ComboBox>
+                    </Grid>
+                    <Label x:Name="label6" Content="Event Name:" Grid.Column="4" HorizontalAlignment="Left" Margin="189,7,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="label7" Content="Event Place:" Grid.Column="4" HorizontalAlignment="Left" Margin="189,35,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="label8" Content="Date:" Grid.Column="4" HorizontalAlignment="Left" Margin="189,63,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="label9" Content="Nation:" Grid.Column="4" HorizontalAlignment="Left" Margin="189,90,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="label10" Content="Region:" Grid.Column="4" HorizontalAlignment="Left" Margin="189,121,0,0" VerticalAlignment="Top"/>
+
+
+
+                </Grid>
+            </TabItem>
+            <TabItem Header="Participants" Height="22" VerticalAlignment="Top">
+                <!-- DataContext="{StaticResource ViewSource}"  -->
+                <Grid Background="#FFE5E5E5" Margin="0,0,5,6" DataContext="{StaticResource competitionsViewSource}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="29*"/>
+                        <ColumnDefinition Width="11*"/>
+                        <ColumnDefinition Width="55*"/>
+                        <ColumnDefinition Width="263*"/>
+                        <ColumnDefinition Width="133*"/>
+                        <ColumnDefinition Width="88*"/>
+                        <ColumnDefinition Width="262*"/>
+                    </Grid.ColumnDefinitions>
+                    <!--  Text="{Binding regTimeCent, StringFormat={}{##}}" -->
+                    <TextBox x:Name="ParticipantSurnameTextBox" HorizontalAlignment="Left" Height="23" Margin="2,39,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="209" Grid.Column="6" ToolTip="Surname" AutomationProperties.HelpText="Surname" AutomationProperties.Name="Surname"/>
+                    <TextBox x:Name="ParticipantBirthYearTextBox" HorizontalAlignment="Left" Height="23" Margin="2,128,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="45" Grid.Column="6" RenderTransformOrigin="-1.689,0.565" TextChanged="ParticipantBirthYearTextBox_TextChanged" Text="YYYY"/>
+                    <TextBox x:Name="ParticipantRegTimeMinTextBox" HorizontalAlignment="Left" Height="23" Margin="2,250,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="27" Grid.Column="6" Text="mm"  />
+                    <TextBox x:Name="ParticipantRegTimeSecTextBox" Grid.Column="6" HorizontalAlignment="Left" Height="23" Margin="29,250,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="23" Text="ss"/>
+                    <TextBox x:Name="ParticipantRegTimeCentTextBox" Grid.Column="6" HorizontalAlignment="Left" Height="23" Margin="52,250,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="34" Text="cccc"/>
+                    <Button x:Name="AddParticipantButton" Content="Add Participant" HorizontalAlignment="Left" Margin="126,291,0,0" VerticalAlignment="Top" Width="90" Grid.Column="6" Height="20" Click="AddParticipantButton_Click"/>
+                    <TextBox x:Name="ParticipantBirthMonthTextBox" Grid.Column="6" HorizontalAlignment="Left" Height="23" Margin="52,128,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="30" RenderTransformOrigin="-1.687,0.739" Text="MM"/>
+                    <TextBox x:Name="ParticipantBirthDayTextBox" Grid.Column="6" HorizontalAlignment="Left" Height="23" Margin="87,128,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="30" Text="DD"/>
+                    <TextBox x:Name="ParticipantCityTextBox" Grid.Column="6" HorizontalAlignment="Left" Height="23" Margin="2,162,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="146"/>
+                    <TextBox x:Name="ParticipantNameTextBox" HorizontalAlignment="Left" Height="23" Margin="2,67,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="209"  Grid.Column="6"/>
+
+                    <Label x:Name="label" Content="Surename:" Grid.Column="5" HorizontalAlignment="Left" Margin="0,35,0,0" VerticalAlignment="Top" Height="26" Width="69"/>
+                    <Label x:Name="label_Copy" Content="Name:" Grid.Column="5" HorizontalAlignment="Left" Margin="1,66,0,0" VerticalAlignment="Top" Height="26" Width="44"/>
+                    <Grid x:Name="grid1" Grid.Column="4" DataContext="{StaticResource sexParticipantViewSource}" HorizontalAlignment="Left" Margin="101,235,0,0" VerticalAlignment="Top" Height="0" Width="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                    </Grid>
+                    <Grid x:Name="grid2" Grid.Column="4" DataContext="{StaticResource sexParticipantViewSource}" HorizontalAlignment="Left" Margin="46,185,0,0" VerticalAlignment="Top" Height="0" Width="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                    </Grid>
+                    <Grid x:Name="grid3" Grid.Column="6" DataContext="{StaticResource sexViewSource}" HorizontalAlignment="Left" Margin="2,97,0,0" VerticalAlignment="Top" Width="192" Height="32">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1"/>
+                            <ColumnDefinition Width="151"/>
+                            <ColumnDefinition Width="Auto" MinWidth="34"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="4"/>
+                            <RowDefinition Height="28"/>
+                        </Grid.RowDefinitions>
+                        <ComboBox x:Name="sexNameComboBox" DisplayMemberPath="SexName" SelectedValuePath="{Binding id}" HorizontalAlignment="Left" Height="22" ItemsSource="{Binding}" Margin="0,0,0,10" VerticalAlignment="Center" Width="130" Grid.RowSpan="2" Grid.ColumnSpan="2">
+                            <ComboBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <VirtualizingStackPanel/>
+                                </ItemsPanelTemplate>
+                            </ComboBox.ItemsPanel>
+                        </ComboBox>
+                    </Grid>
+                    <Grid x:Name="grid4" Grid.Column="6" DataContext="{StaticResource clubViewSource}" HorizontalAlignment="Left" Margin="2,184,0,0" VerticalAlignment="Top" Width="209" Height="32">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="27.554"/>
+                            <ColumnDefinition Width="134"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <ComboBox x:Name="clubNameComboBox" DisplayMemberPath="ClubName" HorizontalAlignment="Left" Height="22" ItemsSource="{Binding}" Margin="0,10,-30,0" Grid.Row="0" VerticalAlignment="Center" Width="192" SelectedValuePath="{Binding id}" Grid.ColumnSpan="3">
+                            <ComboBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <VirtualizingStackPanel/>
+                                </ItemsPanelTemplate>
+                            </ComboBox.ItemsPanel>
+                        </ComboBox>
+                    </Grid>
+                    <Grid x:Name="grid5" Grid.Column="6" DataContext="{StaticResource nationViewSource}" HorizontalAlignment="Left" Margin="2,213,0,0" VerticalAlignment="Top" Height="32" Width="120">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <ComboBox x:Name="nationNameComboBox" Grid.Column="1" DisplayMemberPath="NationName" HorizontalAlignment="Left" Height="Auto" ItemsSource="{Binding}" Margin="0,10,0,0" Grid.Row="0" VerticalAlignment="Center" Width="120" SelectedValuePath="{Binding id}" >
+                            <ComboBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <VirtualizingStackPanel/>
+                                </ItemsPanelTemplate>
+                            </ComboBox.ItemsPanel>
+                        </ComboBox>
+                    </Grid>
+
+                    <DataGrid x:Name="participantDataGrid" IsReadOnly="True" AutoGenerateColumns="False" EnableRowVirtualization="True" 
+                              Margin="10,10,0,34" RowDetailsVisibilityMode="VisibleWhenSelected" 
+                                  HorizontalAlignment="Left" Width="444" 
+                                  RenderTransformOrigin="0.254,0.733" 
+                                  IsSynchronizedWithCurrentItem="True" Grid.ColumnSpan="5" >
+                        <DataGrid.Columns>
+                            <DataGridTextColumn x:Name="idColumn1" Binding="{Binding id}" Header="id" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="surnameColumn1"  Binding="{Binding Surname}" Header="Surname" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="nameColumn1"  Binding="{Binding Name}" Header="Name" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="sexColumn1" Binding="{Binding SexName}" Header="Gender" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="birthYearColumn1"  Binding="{Binding BirthYear}" Header="Birth Year" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="clubColumn1"  Binding="{Binding ClubName}" Header="Club" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="cityColumn1"  Binding="{Binding City}" Header="City" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="nationalityColumn1"  Binding="{Binding NationName}" Header="Nationality" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="regTime1"  Binding="{Binding RegTime}" Header="Entry Time" Width="SizeToHeader"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Label x:Name="label1" Content="City:" Grid.Column="5" HorizontalAlignment="Left" Margin="1,159,0,0" VerticalAlignment="Top" Height="26" Width="33"/>
+                    <Label x:Name="label2" Content="Birth Date:" Grid.Column="5" HorizontalAlignment="Left" Margin="1,128,0,0" VerticalAlignment="Top" Height="26" Width="66"/>
+                    <Label x:Name="label3" Content="Entry Time:" Grid.Column="5" HorizontalAlignment="Left" Margin="1,250,0,0" VerticalAlignment="Top" Height="26" Width="69"/>
+                    <Label x:Name="label11" Content="Sex:" Grid.Column="5" HorizontalAlignment="Left" Margin="0,97,0,0" VerticalAlignment="Top" Height="26" Width="31"/>
+                    <Label Content="Club Name:" Grid.Column="5" HorizontalAlignment="Left" Margin="1,190,0,256" Grid.Row="0" VerticalAlignment="Center" Height="26" Width="72"/>
+                    <Label Content="Nation Name:" Grid.Column="5" HorizontalAlignment="Left" Margin="1,219,0,227" Grid.Row="0" VerticalAlignment="Center" Height="26" Width="83"/>
+
+
+                </Grid>
+            </TabItem>
+            <TabItem Header="Clubs" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="54">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="42*"/>
+                        <ColumnDefinition Width="35*"/>
+                        <ColumnDefinition Width="209*"/>
+                        <ColumnDefinition Width="95*"/>
+                        <ColumnDefinition Width="465*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="ClubNameTextBox" HorizontalAlignment="Left" Height="23" Margin="2,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="209" Grid.Column="4"/>
+                    <Button x:Name="AddClubButton" Content="Add Club" HorizontalAlignment="Left" Margin="136,71,0,0" VerticalAlignment="Top" Width="75" Grid.Column="4" Click="AddClubButton_Click" Height="20"/>
+                    <DataGrid x:Name="clubsDataGrid" IsReadOnly="True" HorizontalAlignment="Left" Margin="15,10,0,0" VerticalAlignment="Top" Height="336" Width="268" RenderTransformOrigin="0.259,0.373" Grid.ColumnSpan="3" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn x:Name="clubIdColumn" Binding="{Binding id}" Header="id" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="clubNameColumn"  Binding="{Binding ClubName}" Header="Club" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="clubRegionColumn"  Binding="{Binding RegionName}" Header="Region" Width="SizeToHeader"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Grid x:Name="grid6" Grid.Column="4" DataContext="{StaticResource regionsViewSource}" HorizontalAlignment="Left" Margin="2,38,0,0" VerticalAlignment="Top" Width="298" Height="89">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="213"/>
+                            <ColumnDefinition Width="85"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1"/>
+                            <RowDefinition Height="28"/>
+                            <RowDefinition Height="42"/>
+                        </Grid.RowDefinitions>
+                        <ComboBox x:Name="ClubRegionComboBox" DisplayMemberPath="RegionName" HorizontalAlignment="Left" Height="24" SelectedValuePath="{Binding id}" ItemsSource="{Binding Source={StaticResource regionsViewSource}}" VerticalAlignment="Center" Width="209" SelectionChanged="ClubRegionComboBox_SelectionChanged" Grid.Column="1" Margin="0,4,0,1" Grid.Row="1">
+                            <ComboBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <VirtualizingStackPanel/>
+                                </ItemsPanelTemplate>
+                            </ComboBox.ItemsPanel>
+                        </ComboBox>
+                    </Grid>
+                    <Label x:Name="label4" Content="Club Name:" Grid.Column="3" HorizontalAlignment="Left" Margin="7,7,0,0" VerticalAlignment="Top" Height="26" Width="72"/>
+                    <Label x:Name="label5" Content="Club Region:" Grid.Column="3" HorizontalAlignment="Left" Margin="7,41,0,0" VerticalAlignment="Top" Height="26" Width="77"/>
+                    <!--<Grid x:Name="gridEventRegion" Grid.Column="4" DataContext="{StaticResource regionsViewSource}" HorizontalAlignment="Left" Margin="167,128,0,0" VerticalAlignment="Top" Width="209" Height="29">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="94.672"/>
+                            <ColumnDefinition Width="75.328"/>
+                            <ColumnDefinition Width="14*"/>
+                            <ColumnDefinition Width="0*"/>
+                            <ColumnDefinition Width="25*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <ComboBox x:Name="EventRegionComboBox" DisplayMemberPath="RegionName" SelectedValuePath="{Binding}" Grid.Column="1" HorizontalAlignment="Left" Margin="0,-3,0,0" VerticalAlignment="Top" Width="209" ItemsSource="{Binding Source={StaticResource regionsViewSource}}" SelectionChanged="EventRegionComboBox_SelectionChanged" Grid.ColumnSpan="5">
+
+                            <ComboBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <VirtualizingStackPanel/>
+                                </ItemsPanelTemplate>
+                            </ComboBox.ItemsPanel>
+                        </ComboBox>
+                    </Grid>-->
+                </Grid>
+            </TabItem>
+            <ListBox x:Name="listBox1" Height="100" Width="100"/>
+        </TabControl>
+    </Grid>
+
+</Window>

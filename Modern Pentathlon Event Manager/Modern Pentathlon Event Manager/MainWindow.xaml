@@ -1,0 +1,95 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Modern_Pentathlon_Event_Manager"
+        xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="Modern_Pentathlon_Event_Manager.MainWindow"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="531.178" Width="923.789" Loaded="Window_Loaded">
+    <Window.Resources>
+        <local:_event_managerDataSet x:Key="_event_managerDataSet"/>
+        <CollectionViewSource x:Key="eventsViewSource" Source="{Binding Events, Source={StaticResource _event_managerDataSet}}"/>
+        <CollectionViewSource x:Key="eventsEventParticipantsViewSource" Source="{Binding FK_EventParticipants_1_0, Source={StaticResource eventsViewSource}}"/>
+    </Window.Resources>
+    <Grid DataContext="{StaticResource eventsViewSource}" Margin="0,0,2,9">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="477*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Menu x:Name="menu" HorizontalAlignment="Left" Height="19" VerticalAlignment="Top" Width="1055" Grid.ColumnSpan="2" Margin="0,0,-203,0">
+            <MenuItem x:Name="AddBrowseMenuItem" Header="Add/Browse" Click="AddBrowseMenuItem_Click"/>
+            <MenuItem x:Name="StartOrderMenuItem" Header="Start order" Click="MenuItem_Click"/>
+            <MenuItem x:Name="ScoresMenuItem" Header="Scores"/>
+        </Menu>
+        <Grid x:Name="grid1" Grid.ColumnSpan="2" DataContext="{StaticResource eventsViewSource}" Margin="5,24,10,-37" VerticalAlignment="Top" Height="491" Grid.RowSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="214"/>
+                <ColumnDefinition Width="175*"/>
+                <ColumnDefinition Width="153*"/>
+                <ColumnDefinition Width="17*"/>
+                <ColumnDefinition Width="62*"/>
+                <ColumnDefinition Width="195*"/>
+                <ColumnDefinition Width="20*"/>
+                <ColumnDefinition Width="63*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="38"/>
+                <RowDefinition Height="24"/>
+                <RowDefinition Height="393"/>
+            </Grid.RowDefinitions>
+
+            <Label Content="Event Name:" Grid.Column="0" HorizontalAlignment="Left" Margin="10,12,0,1" Grid.Row="0" VerticalAlignment="Center" Height="26" Width="77"/>
+            <ComboBox x:Name="eventNameComboBox" DisplayMemberPath="EventName" HorizontalAlignment="Left" Height="22" ItemsSource="{Binding}" Margin="92,14,0,3" Grid.Row="0" VerticalAlignment="Center" Width="120" SelectedValuePath="{Binding id}">
+                <ComboBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel/>
+                    </ItemsPanelTemplate>
+                </ComboBox.ItemsPanel>
+            </ComboBox>
+            <DataGrid x:Name="competitionDataGrid" HorizontalAlignment="Left" Margin="4,41,0,0" VerticalAlignment="Top" Width="143" Height="153" RenderTransformOrigin="0.524,0.562" AutoGenerateColumns="false" Grid.Column="2" IsReadOnly="True" Grid.Row="2">
+                <DataGrid.Columns>
+                    <DataGridTextColumn x:Name="id"  Header="id" Width="1" Binding="{Binding id}" />
+                    <DataGridTextColumn x:Name="CompetitionName"  Header="CompetitionName" Width="SizeToHeader" Binding="{Binding CompetitionName}" />
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <DataGrid x:Name="eventCompetitionDataGrid" HorizontalAlignment="Left" Margin="14,41,0,0" VerticalAlignment="Top" Width="178" Height="153" RenderTransformOrigin="0.524,0.562" IsReadOnly="True" AutoGenerateColumns="false" Grid.Column="5" Grid.Row="2">
+                <DataGrid.Columns>
+                    <DataGridTextColumn x:Name="id1"  Header="id" Width="1" Binding="{Binding CompetitionID}" />
+                    <DataGridTextColumn x:Name="EventCompetitionName"  Header="CompetitionName" Width="SizeToHeader" Binding="{Binding CompetitionName}" />
+                    <DataGridTextColumn x:Name="Order"  Header="Order" Width="SizeToHeader" Binding="{Binding Order}" />
+                </DataGrid.Columns>
+            </DataGrid>
+            <Button x:Name="addCompetitionButton" Content="-&gt;" HorizontalAlignment="Left" Margin="3,57,0,0" VerticalAlignment="Top" Width="46" Height="44" RenderTransformOrigin="0.217,-0.205" Click="addCompetitionButton_Click" Grid.Column="4" Grid.Row="2"/>
+            <Button x:Name="deleteCompetitionButton" Content="&lt;-" HorizontalAlignment="Left" Margin="3,123,0,0" VerticalAlignment="Top" Width="46" Height="44" RenderTransformOrigin="0.217,-0.205" Click="deleteCompetitionButton_Click" Grid.Column="4" Grid.Row="2"/>
+            <Button x:Name="higherOrderButton" Content="/\" HorizontalAlignment="Left" Margin="0,57,0,0" VerticalAlignment="Top" Width="46" Height="44" RenderTransformOrigin="0.217,-0.205" Click="higherOrderButton_Click" Grid.Column="7" Grid.Row="2"/>
+            <Button x:Name="lowerOrderButton" Content="\/" HorizontalAlignment="Left" Margin="0,123,0,0" VerticalAlignment="Top" Width="46" Height="44" RenderTransformOrigin="0.217,-0.205" Click="lowerOrderButton_Click" Grid.Column="7" Grid.Row="2"/>
+
+        </Grid>
+
+        <Button x:Name="chooseEventButton" Grid.ColumnSpan="2" Content="Choose event!" HorizontalAlignment="Left" Margin="224,31,0,0" VerticalAlignment="Top" Width="94" Height="32" Click="chooseEventButton_Click" />
+
+        <Label x:Name="participantsListLabel" Grid.ColumnSpan="2" Content="Participants list:" HorizontalAlignment="Left" Margin="10,87,0,0" VerticalAlignment="Top" Width="101"/>
+        <Button x:Name="addDeleteParticipants" Grid.ColumnSpan="2" Content="Add/Delete participants" HorizontalAlignment="Left" Margin="185,90,0,0" VerticalAlignment="Top" Width="142" Click="addDeleteParticipants_Click"/>
+        <DataGrid x:Name="participantsDataGrid" Grid.ColumnSpan="2" IsReadOnly="True" 
+                  HorizontalAlignment="Left" 
+                  VerticalAlignment="Top" Height="354" Width="367" MinRowHeight="50"
+                  Focusable="False" AutoGenerateColumns="false" Margin="10,113,0,0" SelectionChanged="participantsDataGrid_SelectionChanged" >
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="Surname"  Header="Surname" Width="SizeToHeader" Binding="{Binding Surname}" />
+                <DataGridTextColumn x:Name="Name"  Header="Name" Width="SizeToHeader" Binding="{Binding Name}" />
+                <DataGridTextColumn x:Name="Gender"  Header="Gender" Width="SizeToHeader" Binding="{Binding SexName}" />
+                <DataGridTextColumn x:Name="BirthYear"  Header="BirthYear" Width="SizeToHeader" Binding="{Binding BirthYear}" />
+                <DataGridTextColumn x:Name="Club"  Header="Club" Width="SizeToHeader" Binding="{Binding ClubName}" />
+                <DataGridTextColumn x:Name="City"  Header="City" Width="SizeToHeader" Binding="{Binding City}" />
+                <DataGridTextColumn x:Name="EntryTime"  Header="Entry Time" Width="SizeToHeader" Binding="{Binding RegTime}" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button x:Name="newStartOrderButton" Grid.ColumnSpan="2" Content="Generate new start order" HorizontalAlignment="Left" Margin="483,53,0,0" VerticalAlignment="Top" Width="143" Click="newStartOrderButton_Click"/>
+    </Grid>
+</Window>

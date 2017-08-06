@@ -1,0 +1,39 @@
+﻿<Window x:Class="Modern_Pentathlon_Event_Manager.startOrderWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Modern_Pentathlon_Event_Manager"
+        mc:Ignorable="d"
+        Title="startOrderWindow" Height="455" Width="750">
+    <Grid>
+        <ComboBox x:Name="competitionComboBox" HorizontalAlignment="Left" Margin="88,10,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="comboBox_SelectionChanged"/>
+        <Button x:Name="printStartOrder" Content="Print to PDF" HorizontalAlignment="Left" Margin="402,10,0,0" VerticalAlignment="Top" Width="74" Height="22" Click="printStartOrder_Click" RenderTransformOrigin="-0.107,1.182"/>
+        <Button x:Name="newStartOrderButton" Content="Generate new start order" HorizontalAlignment="Left" Margin="235,10,0,0" VerticalAlignment="Top" Width="143" Height="22" Click="newStartOrderButton_Click"/>
+        <TextBlock x:Name="competitionTextBlock" HorizontalAlignment="Left" Margin="10,13,0,0" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="-2.191,-7.268" Height="19" Width="78" Text="Competition:"/>
+        <DataGrid x:Name="maleDataGrid" IsReadOnly="True" HorizontalAlignment="Left" Margin="10,65,0,0" VerticalAlignment="Top" Height="334" Width="350" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="Surname"  Header="Surname" Width="SizeToHeader" Binding="{Binding Surname}" />
+                <DataGridTextColumn x:Name="Name"  Header="Name" Width="SizeToHeader" Binding="{Binding Name}" />
+                <DataGridTextColumn x:Name="Gender"  Header="Gender" Width="SizeToHeader" Binding="{Binding SexName}" />
+                <DataGridTextColumn x:Name="BirthYear"  Header="BirthYear" Width="SizeToHeader" Binding="{Binding BirthYear}" />
+                <DataGridTextColumn x:Name="Club"  Header="Club" Width="SizeToHeader" Binding="{Binding ClubName}" />
+                <DataGridTextColumn x:Name="City"  Header="City" Width="SizeToHeader" Binding="{Binding City}" />
+                <DataGridTextColumn x:Name="EntryTime"  Header="Entry Time" Width="SizeToHeader" Binding="{Binding RegTime}" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <DataGrid x:Name="femaleDataGrid" IsReadOnly="True" HorizontalAlignment="Left" Margin="383,65,0,0" VerticalAlignment="Top" Height="334" Width="349" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="Surname1"  Header="Surname" Width="SizeToHeader" Binding="{Binding Surname}" />
+                <DataGridTextColumn x:Name="Name1"  Header="Name" Width="SizeToHeader" Binding="{Binding Name}" />
+                <DataGridTextColumn x:Name="Gender1"  Header="Gender" Width="SizeToHeader" Binding="{Binding SexName}" />
+                <DataGridTextColumn x:Name="BirthYear1"  Header="BirthYear" Width="SizeToHeader" Binding="{Binding BirthYear}" />
+                <DataGridTextColumn x:Name="Club1"  Header="Club" Width="SizeToHeader" Binding="{Binding ClubName}" />
+                <DataGridTextColumn x:Name="City1"  Header="City" Width="SizeToHeader" Binding="{Binding City}" />
+                <DataGridTextColumn x:Name="EntryTime1"  Header="Entry Time" Width="SizeToHeader" Binding="{Binding RegTime}" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <TextBlock x:Name="competitionTextBlock_Copy" HorizontalAlignment="Left" Margin="138,37,0,0" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="-2.191,-7.268" Height="19" Width="96" Text="Male Start Order"/>
+        <TextBlock x:Name="competitionTextBlock_Copy1" HorizontalAlignment="Left" Margin="500,37,0,0" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="-2.191,-7.268" Height="19" Width="110" Text="Female Start Order"/>
+    </Grid>
+</Window>
